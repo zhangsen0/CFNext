@@ -1,0 +1,14 @@
+{
+  "name": "cfnext",
+  "version": "2.3.0",
+  "private": true,
+  "description": "CFNext 订阅管理器 —— Cloudflare Workers 部署工程",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "deploy:test": "wrangler deploy --config wrangler.test.toml",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

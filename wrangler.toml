@@ -1,0 +1,29 @@
+# ============================================================================
+# CFNext · 生产环境 Wrangler 配置（Cloudflare Workers）
+# ----------------------------------------------------------------------------
+# 说明：
+#  - 本文件供「生产 GitHub Action 自动部署」使用（.github/workflows/deploy.yml）
+#  - 部署账户：zhangsen6539@gmail.com / 账户 b1380abef4376652a1abd2b6138a554e
+#  - 托管域名：520215.xyz，仅使用子域名 cfnext.520215.xyz
+#  - CLOUDFLARE_API_TOKEN 通过仓库 Secrets 注入（不在本文件留明文）
+# ============================================================================
+
+name = "cfnext"
+main = "src/worker.js"
+compatibility_date = "2025-01-01"
+account_id = "b1380abef4376652a1abd2b6138a554e"
+workers_dev = true
+
+# KV 命名空间（变量名必须为 K，面板配置持久化于此）
+kv_namespaces = [
+  { binding = "K", id = "d964a219906f4fef92bf094a1d71bcaa" }
+]
+
+# 仅使用子域名：cfnext.520215.xyz（custom_domain 会自动建 CNAME + 绑定）
+routes = [
+  { pattern = "cfnext.520215.xyz", custom_domain = true }
+]
+
+# 面板访问路径（UUID）。如需修改，重新生成后在仓库 Secrets/变量中同步
+[vars]
+U = "52645c79-1a18-4cc4-abc3-f2fe763cf634"

@@ -1,0 +1,27 @@
+# ============================================================================
+# CFNext · 测试环境 Wrangler 配置（Cloudflare Workers）
+# ----------------------------------------------------------------------------
+# 说明：
+#  - 本文件仅供「本地手动上传部署包」使用，不进入 GitHub Action
+#  - 部署命令：CLOUDFLARE_API_TOKEN=<测试token> CLOUDFLARE_ACCOUNT_ID=<测试账户> npx wrangler deploy --config wrangler.test.toml
+#  - 部署账户：271201468@qq.com / 账户 0d7cb24f17aa38cbf375e5863b0797c7
+#  - 托管域名：zhangsen.kdns.fr，仅使用子域名 cfnext.zhangsen.kdns.fr
+#  - 仅用于编码测试，验证无误后再部署到生产
+# ============================================================================
+
+name = "cfnext-test"
+main = "src/worker.js"
+compatibility_date = "2025-01-01"
+account_id = "0d7cb24f17aa38cbf375e5863b0797c7"
+workers_dev = true
+
+kv_namespaces = [
+  { binding = "K", id = "007eef26075e48df8b58571daa483202" }
+]
+
+routes = [
+  { pattern = "cfnext.zhangsen.kdns.fr", custom_domain = true }
+]
+
+[vars]
+U = "3f68235f-c5b3-4224-bdb2-390166dea003"
