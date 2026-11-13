@@ -5,10 +5,11 @@
 #  - 本文件供「生产 GitHub Action 自动部署」使用（.github/workflows/deploy.yml）
 #  - 部署账户：zhangsen6539@gmail.com / 账户 b1380abef4376652a1abd2b6138a554e
 #  - 托管域名：520215.xyz，仅使用子域名 cfnext.520215.xyz
+#  - Worker 名 cfnext-app（原 cfnext 实例曾损坏，改名重建）
 #  - CLOUDFLARE_API_TOKEN 通过仓库 Secrets 注入（不在本文件留明文）
 # ============================================================================
 
-name = "cfnext"
+name = "cfnext-app"
 main = "src/worker.js"
 compatibility_date = "2025-01-01"
 account_id = "b1380abef4376652a1abd2b6138a554e"

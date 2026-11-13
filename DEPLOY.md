@@ -18,7 +18,7 @@ wrangler.test.toml        # 测试环境配置（本地手动上传部署包使�
 | 用途 | 编码测试 | 稳定对外 |
 | 部署方式 | 本地手动上传部署包 | GitHub Action 自动部署 |
 | Cloudflare 账户 | 0d7cb24f17aa38cbf375e5863b0797c7 | b1380abef4376652a1abd2b6138a554e |
-| Worker 名称 | cfnext-test | cfnext |
+| Worker 名称 | cfnext-test | cfnext-app |
 | 子域名 | cfnext.zhangsen.kdns.fr | cfnext.520215.xyz |
 | KV 命名空间 | cfnext-test-kv | cfnext-prod-kv |
 
