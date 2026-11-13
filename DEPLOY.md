@@ -5,7 +5,8 @@
 ## 目录结构
 
 ```
-src/worker.js              # 从「CFNext 明文版.js」复制的 Worker 入口
+src/worker.js              # Worker 薄包装入口（动态 import 主体）
+src/cfnext.js              # 「CFNext 明文版.js」原版主体
 wrangler.toml             # 生产环境配置（GitHub Action 自动部署使用）
 wrangler.test.toml        # 测试环境配置（本地手动上传部署包使用）
 .github/workflows/deploy.yml  # 生产环境 GitHub Action 自动部署
@@ -44,3 +45,10 @@ npx wrangler deploy --config wrangler.test.toml
 部署后访问 `https://cfnext.520215.xyz/<U>` 进入面板。
 
 > 流程约定：**测试环境验证无误后，再将最终代码推到 main 触发生产自动部署**。
+
+## 关于入口包装（重要）
+
+部分 Cloudflare 账户把 CFNext 单文件（约 428 KiB）直接作为 Worker 入口时会出现启动异常
+（`error code: 522` / `1101`）。因此 `src/worker.js` 只做一层薄包装，通过动态 `import('./cfnext.js')`
+加载主体，让主体成为独立模块；同时不导出 `scheduled` handler（`BESTIP_AUTO` 定时优选为可选功能，
+默认关闭，如需启用需另行配置 cron triggers）。这是生产环境部署能正常工作的必要结构，请勿改回单文件入口。
