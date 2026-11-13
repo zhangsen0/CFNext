@@ -5,11 +5,12 @@
 #  - 本文件供「生产 GitHub Action 自动部署」使用（.github/workflows/deploy.yml）
 #  - 部署账户：zhangsen6539@gmail.com / 账户 b1380abef4376652a1abd2b6138a554e
 #  - 托管域名：520215.xyz，仅使用子域名 cfnext.520215.xyz
-#  - Worker 名 cfnext-app（原 cfnext 实例曾损坏，改名重建）
+#  - Worker 名 cfnext-prod；使用 zone 级 Workers Route（不依赖 custom domain 映射）
+#  - 子域名 cfnext.520215.xyz 的橘云 DNS 记录需常驻（AAAA 100:: proxied）
 #  - CLOUDFLARE_API_TOKEN 通过仓库 Secrets 注入（不在本文件留明文）
 # ============================================================================
 
-name = "cfnext-app"
+name = "cfnext-prod"
 main = "src/worker.js"
 compatibility_date = "2025-01-01"
 account_id = "b1380abef4376652a1abd2b6138a554e"
@@ -22,7 +23,7 @@ kv_namespaces = [
 
 # 仅使用子域名：cfnext.520215.xyz（custom_domain 会自动建 CNAME + 绑定）
 routes = [
-  { pattern = "cfnext.520215.xyz", custom_domain = true }
+  { pattern = "cfnext.520215.xyz/*", zone_id = "3e768047adb7722044400a312bbe7a2e" }
 ]
 
 # 面板访问路径（UUID）。如需修改，重新生成后在仓库 Secrets/变量中同步
