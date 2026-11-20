@@ -1,0 +1,30 @@
+name: Deploy CFNext to Cloudflare Pages
+
+# 生产环境：推送到 main 分支时自动部署 CFNext（单文件 Pages 形态）
+# 部署目标：Cloudflare Pages 项目 cfnext-prod
+# 自定义域名：cfnext.520215.xyz
+# 环境变量 KV/U 已在 Pages 项目后台配置（K 全新空白，U 为入口 UUID）
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "pages/_worker.js"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy pages --project-name=cfnext-prod --branch=main --commit-dirty=true
